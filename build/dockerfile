@@ -1,8 +1,8 @@
 FROM ubuntu
 
-COPY start.sh /aura_bootstrap/start.sh
-COPY requirements.txt /aura_bootstrap/requirements.txt
-WORKDIR /aura_bootstrap
+COPY start.sh /inventory_bootstrap/start.sh
+COPY requirements.txt /inventory_bootstrap/requirements.txt
+WORKDIR /inventory_bootstrap
 
 RUN apt-get clean \
     && apt-get -y update
