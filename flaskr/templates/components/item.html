@@ -1,0 +1,15 @@
+<div style="font-weight: bold; font-size: 14px;">
+    <div style="font-weight: bold; font-size: 20px;">{{item.name}}</div>
+    <div>{{item.description}}</div>
+    <div>
+        <span style="font-weight: bold;">Unit Value:</span>{{item.unit_value}}
+        <span style="font-weight: bold;">Quantity:</span>{{item.quantity}}
+        <span style="font-weight: bold;">Total Value:</span>{{item.total_value}}
+    </div>
+    <div>
+        <a href="/edit_item?id={{item.id_}}">Edit</a>
+        <a href="/delete_item?id={{item.id_}}">Delete</a>
+    </div>
+
+    <div style="width: 100%; border-bottom: 3px solid black;"></div>
+</div>

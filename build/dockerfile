@@ -1,0 +1,38 @@
+FROM ubuntu
+
+COPY start.sh /aura_bootstrap/start.sh
+COPY requirements.txt /aura_bootstrap/requirements.txt
+WORKDIR /aura_bootstrap
+
+RUN apt-get clean \
+    && apt-get -y update
+
+RUN apt-get -y install -y nginx \
+    && apt-get -y install -y python3 \
+    && apt-get -y install -y python3-pip \
+    && apt-get -y install -y build-essential \
+    && apt-get -y install -y tzdata \
+    && apt-get -y install gnupg \
+    && apt-get install -y wget \
+    && apt-get -y install systemctl
+     
+RUN apt-get update && apt-get -y install -y zip gzip tar
+
+RUN apt-get update && wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | apt-key add -
+
+RUN echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+
+RUN apt-get -y update
+
+RUN apt-get install -y mongodb-org
+
+RUN systemctl enable --now mongod
+
+RUN pip install -r requirements.txt --src /usr/local/src
+
+COPY nginx.conf /etc/nginx
+
+
+RUN chmod +x ./start.sh
+
+CMD ["./start.sh"]
